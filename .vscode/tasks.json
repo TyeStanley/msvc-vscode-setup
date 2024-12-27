@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "C/C++: cl.exe build active file",
+      "command": "\"${workspaceFolder}\\msvc-vscode-setup.bat\" && if not exist build\\debug mkdir build\\debug && cl.exe",
+      "args": [
+        "/Zi", // * Generate complete debugging information
+        "/EHsc", // * Enable C++ exception handling
+        "/nologo", // * Suppress startup banner (cleaner output)
+        "/Fe:", // * Specify output executable file name
+        "${workspaceFolder}\\build\\debug\\main.exe", // * Path where the .exe will be created
+        "/Fd:", // * Specify .pdb file location (debug symbols)
+        "${workspaceFolder}\\build\\debug\\", // * Directory for .pdb files
+        "/Fo:", // * Specify .obj file location (object files)
+        "${workspaceFolder}\\build\\debug\\", // * Directory for .obj files
+        "${workspaceFolder}\\src\\main.cpp", // * Source file to compile
+        "User32.lib" // * Link with Windows User32 library (for Windows API)
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}", // * Current Working Directory - where the task starts
+        "shell": {
+          "executable": "cmd.exe", // * Use Windows Command Prompt
+          "args": ["/C"] // * /C tells cmd.exe to execute the command and terminate
+        }
+      },
+      "problemMatcher": ["$msCompile"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
